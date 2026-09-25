@@ -1,0 +1,18 @@
+# Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Java compiled files
+*.class
+build/
+bin/
+target/
+
+# Tomcat
+Servers/
+
+# OS files
+.DS_Store
+Thumbs.db
