@@ -1,32 +1,47 @@
-<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.tap.model.Restaurant" %>
 
+<%
+    List<Restaurant> restaurants =
+        (List<Restaurant>) request.getAttribute("restaurants");
+%>
+
 <!DOCTYPE html>
-<html>–
+<html>
 
 <head>
 
     <meta charset="UTF-8">
 
-    <title>Virundhu - Restaurants</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Restaurants - Virundhu</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+
+    <!-- =========================
+         GOOGLE FONT
+         ========================= -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
 
 
-    <style>
+    <!-- =========================
+         RESTAURANT PAGE CSS
+         ========================= -->
 
-        /* =========================
-           GLOBAL
-        ========================= */
+    <style>
 
         * {
             margin: 0;
@@ -34,649 +49,723 @@
             box-sizing: border-box;
         }
 
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
         body {
             font-family: 'Poppins', sans-serif;
+            background: #fffaf5;
+            color: #222;
+        }
+
+
+        /* =========================
+           HERO
+           ========================= */
+
+        .restaurant-hero {
+            padding: 75px 7% 60px;
+            text-align: center;
 
             background:
                 linear-gradient(
                     135deg,
-                    #fff8f2,
-                    #fff1e6
+                    #fff3e6,
+                    #fffaf5
                 );
 
-            color: #222;
-
-            min-height: 100vh;
+            scroll-margin-top: 90px;
         }
 
 
-        /* =========================
-           HEADER
-        ========================= */
-
-        .header {
-
-            width: 100%;
-
-            padding: 18px 7%;
-
-            background: rgba(255, 255, 255, 0.94);
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 1000;
-
-            box-shadow:
-                0 5px 25px rgba(0, 0, 0, 0.08);
-
-            backdrop-filter: blur(15px);
-        }
-
-
-        /* =========================
-           VIRUNDHU LOGO
-        ========================= */
-
-        .logo {
-
-            font-family: 'Pacifico', cursive;
-
-            font-size: 42px;
-
-            color: #ff5a00;
-
-            letter-spacing: 1px;
-
-            text-shadow:
-                2px 2px 0 #ffe1cc,
-                4px 4px 12px rgba(255, 90, 0, 0.20);
-
-            cursor: pointer;
-
-            transition: 0.3s ease;
-        }
-
-
-        .logo:hover {
-
-            transform: scale(1.05);
-
-        }
-
-
-        .header-text {
-
-            font-size: 15px;
-
-            font-weight: 500;
-
-            color: #555;
-        }
-
-
-        /* =========================
-           HERO SECTION
-        ========================= */
-
-        .hero {
-
-            width: 90%;
-
-            max-width: 1200px;
-
-            margin: 50px auto 40px;
-
-            text-align: center;
-        }
-
-
-        .hero h1 {
-
-            font-size: 44px;
-
-            font-weight: 800;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff4b00,
-                    #ff8a00
-                );
-
-            -webkit-background-clip: text;
-
-            -webkit-text-fill-color: transparent;
-
+        .hero-small {
+            color: #ff6b00;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
             margin-bottom: 12px;
         }
 
 
-        .hero p {
+        .restaurant-hero h1 {
+            font-size: 46px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #222;
+        }
 
+
+        .restaurant-hero h1 span {
+            color: #ff6b00;
+        }
+
+
+        .restaurant-hero p {
             color: #777;
-
-            font-size: 17px;
-
-            line-height: 1.6;
+            font-size: 16px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
         }
 
 
         /* =========================
-           RESTAURANT CONTAINER
-        ========================= */
+           UNIQUE SEARCH
+           ========================= */
 
-        .container {
-
-            width: 90%;
-
-            max-width: 1350px;
-
-            margin: auto;
-
-            padding-bottom: 70px;
+        .search-wrapper {
+            max-width: 700px;
+            margin: 32px auto 0;
         }
 
 
-        .restaurant-container {
+        .search-box {
+            display: flex;
+            align-items: center;
 
+            background: white;
+
+            border: 1px solid #f1dfd1;
+
+            border-radius: 18px;
+
+            padding: 7px;
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+
+        .search-box:focus-within {
+            border-color: #ff6b00;
+
+            box-shadow:
+                0 12px 35px rgba(255, 107, 0, 0.15);
+        }
+
+
+        .search-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff3e6;
+
+            border-radius: 14px;
+
+            font-size: 20px;
+
+            flex-shrink: 0;
+        }
+
+
+        .search-box input {
+            flex: 1;
+
+            border: none;
+            outline: none;
+
+            padding: 14px 16px;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 14px;
+
+            background: transparent;
+
+            color: #333;
+        }
+
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+
+        .search-button {
+            border: none;
+
+            background: #ff6b00;
+
+            color: white;
+
+            padding: 13px 22px;
+
+            border-radius: 13px;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .search-button:hover {
+            background: #e85d00;
+            transform: translateY(-2px);
+        }
+
+
+        .search-hint {
+            text-align: left;
+
+            color: #999;
+
+            font-size: 11px;
+
+            margin-top: 8px;
+
+            padding-left: 10px;
+        }
+
+
+        /* =========================
+           RESTAURANT SECTION
+           ========================= */
+
+        .restaurant-section {
+            padding: 65px 7%;
+        }
+
+
+        .section-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+        }
+
+
+        .section-header h2 {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+
+        .restaurant-count {
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RESTAURANT GRID
+           ========================= */
+
+        .restaurant-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(300px, 1fr)
-                );
+                repeat(3, 1fr);
 
-            gap: 30px;
+            gap: 28px;
         }
 
 
         /* =========================
            RESTAURANT CARD
-        ========================= */
+           ========================= */
 
         .restaurant-card {
+            background: white;
 
-            background: rgba(255, 255, 255, 0.97);
-
-            border-radius: 22px;
+            border-radius: 20px;
 
             overflow: hidden;
 
             box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.08);
+                0 8px 25px rgba(0, 0, 0, 0.07);
 
-            border:
-                1px solid rgba(255, 255, 255, 0.8);
+            transition: 0.3s;
 
-            transition:
-                transform 0.35s ease,
-                box-shadow 0.35s ease;
+            border: 1px solid #f2f2f2;
         }
 
 
         .restaurant-card:hover {
-
-            transform: translateY(-10px);
+            transform: translateY(-8px);
 
             box-shadow:
-                0 20px 45px rgba(0, 0, 0, 0.15);
+                0 18px 40px rgba(0, 0, 0, 0.12);
         }
 
 
         /* =========================
-           IMAGE
-        ========================= */
+           RESTAURANT IMAGE
+           ========================= */
 
-        .image-container {
+        .restaurant-image {
+            height: 210px;
 
             position: relative;
 
-            width: 100%;
-
-            height: 220px;
-
             overflow: hidden;
+
+            background: #f5f5f5;
         }
 
 
-        .restaurant-image {
-
+        .restaurant-image img {
             width: 100%;
-
             height: 100%;
 
             object-fit: cover;
 
-            transition:
-                transform 0.5s ease;
+            transition: 0.5s;
         }
 
 
         .restaurant-card:hover
-        .restaurant-image {
-
-            transform: scale(1.08);
+        .restaurant-image img {
+            transform: scale(1.07);
         }
 
 
         /* =========================
-           OPEN BADGE
-        ========================= */
+           RATING
+           ========================= */
 
-        .open-badge {
-
+        .rating {
             position: absolute;
 
             top: 15px;
-
             left: 15px;
-
-            padding: 7px 14px;
-
-            border-radius: 30px;
-
-            background: #20b15a;
-
-            color: white;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.20);
-        }
-
-
-        /* =========================
-           RATING BADGE
-        ========================= */
-
-        .rating-badge {
-
-            position: absolute;
-
-            bottom: 15px;
-
-            right: 15px;
 
             background: white;
 
-            padding: 7px 13px;
-
-            border-radius: 25px;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
-            color: #333;
-
-            box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-
-
-        /* =========================
-           RESTAURANT DETAILS
-        ========================= */
-
-        .restaurant-details {
-
-            padding: 23px;
-        }
-
-
-        .restaurant-name {
-
-            font-size: 23px;
-
-            font-weight: 700;
-
-            color: #222;
-
-            margin-bottom: 9px;
-        }
-
-
-        /* =========================
-           CUISINE
-        ========================= */
-
-        .cuisine {
-
-            display: inline-block;
-
-            background: #fff0e6;
-
-            color: #ff5a00;
-
-            padding: 6px 13px;
-
-            border-radius: 25px;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            margin-bottom: 16px;
-        }
-
-
-        /* =========================
-           ADDRESS
-        ========================= */
-
-        .address {
-
-            color: #777;
-
-            font-size: 14px;
-
-            margin-bottom: 10px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =========================
-           DELIVERY
-        ========================= */
-
-        .delivery {
-
-            color: #555;
-
-            font-size: 14px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .delivery strong {
-
-            color: #333;
-        }
-
-
-        /* =========================
-           OPEN / CLOSE
-        ========================= */
-
-        .timing {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            background: #fafafa;
-
-            border: 1px solid #eeeeee;
-
-            border-radius: 12px;
-
-            padding: 12px;
-
-            margin: 16px 0;
-        }
-
-
-        .timing-box {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 3px;
-        }
-
-
-        .timing-title {
-
-            font-size: 11px;
-
-            color: #999;
-
-            font-weight: 500;
-
-            text-transform: uppercase;
-        }
-
-
-        .timing-time {
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            color: #333;
-        }
-
-
-        .open-text {
-
-            color: #20a957;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            background: #e9f9ef;
+            color: #188038;
 
             padding: 6px 10px;
 
             border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =========================
+           OPEN STATUS
+           ========================= */
+
+        .open-status {
+            position: absolute;
+
+            top: 15px;
+            right: 15px;
+
+            background: #e8f7ed;
+
+            color: #188038;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           CARD CONTENT
+           ========================= */
+
+        .restaurant-content {
+            padding: 22px;
+        }
+
+
+        .restaurant-content h3 {
+            font-size: 21px;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+        }
+
+
+        .cuisine {
+            display: inline-block;
+
+            background: #fff0e3;
+
+            color: #ff6b00;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            margin-bottom: 14px;
+        }
+
+
+        .restaurant-info {
+            color: #777;
+
+            font-size: 13px;
+
+            margin: 7px 0;
+        }
+
+
+        .restaurant-bottom {
+            margin-top: 18px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #eee;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .delivery-time {
+            font-size: 12px;
+            color: #666;
         }
 
 
         /* =========================
            VIEW MENU BUTTON
-        ========================= */
+           ========================= */
 
         .view-menu {
+            text-decoration: none;
 
-            display: block;
-
-            text-align: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff5a00,
-                    #ff8a00
-                );
+            background: #ff6b00;
 
             color: white;
 
-            padding: 13px;
+            padding: 9px 16px;
 
-            border-radius: 11px;
+            border-radius: 20px;
 
-            text-decoration: none;
+            font-size: 12px;
 
             font-weight: 600;
 
-            font-size: 15px;
-
-            transition:
-                all 0.3s ease;
-
-            box-shadow:
-                0 6px 18px rgba(
-                    255,
-                    90,
-                    0,
-                    0.25
-                );
+            transition: 0.3s;
         }
 
 
         .view-menu:hover {
+            background: #e85d00;
 
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 10px 25px rgba(
-                    255,
-                    90,
-                    0,
-                    0.35
-                );
+            transform: translateX(3px);
         }
 
 
         /* =========================
-           NO RESTAURANTS
-        ========================= */
+           LOCATION SECTION
+           ========================= */
 
-        .empty {
+        .location-section {
+            padding: 30px 7% 70px;
 
-            grid-column: 1 / -1;
+            scroll-margin-top: 90px;
+        }
 
-            text-align: center;
 
-            padding: 70px 20px;
+        .location-content {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff0e3,
+                    #fff8f2
+                );
+
+            border: 1px solid #f6dfcd;
+
+            border-radius: 22px;
+
+            padding: 28px 30px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .location-icon {
+            width: 60px;
+            height: 60px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
 
             background: white;
 
-            border-radius: 20px;
+            border-radius: 18px;
 
-            box-shadow:
-                0 8px 25px rgba(
-                    0,
-                    0,
-                    0,
-                    0.06
-                );
+            font-size: 28px;
         }
 
 
-        .empty h2 {
+        .location-content h2 {
+            font-size: 21px;
 
-            font-size: 25px;
-
-            color: #444;
-
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
 
-        .empty p {
+        .location-content p {
+            color: #777;
 
-            color: #888;
+            font-size: 13px;
 
-            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        .location-button {
+            margin-left: auto;
+
+            border: none;
+
+            background: #ff6b00;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 25px;
+
+            font-family: 'Poppins', sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: 0.3s;
+        }
+
+
+        .location-button:hover {
+            background: #e85d00;
+
+            transform: translateY(-2px);
         }
 
 
         /* =========================
            FOOTER
-        ========================= */
+           ========================= */
 
         .footer {
+            margin-top: 20px;
+
+            background: #222;
+
+            color: white;
 
             text-align: center;
 
-            padding: 25px;
+            padding: 35px 20px;
+        }
 
-            color: #888;
+
+        .footer-logo {
+            color: #ff6b00;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        .footer p {
+            color: #aaa;
 
             font-size: 13px;
         }
 
 
-        .footer span {
+        /* =========================
+           RESPONSIVE TABLET
+           ========================= */
 
-            color: #ff5a00;
+        @media (max-width: 1000px) {
 
-            font-weight: 600;
+            .restaurant-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
         }
 
 
         /* =========================
-           RESPONSIVE
-        ========================= */
+           RESPONSIVE MOBILE
+           ========================= */
 
-        @media (max-width: 768px) {
+        @media (max-width: 700px) {
 
-            .header {
-
-                padding: 15px 5%;
+            .restaurant-hero {
+                padding: 50px 5%;
             }
 
 
-            .logo {
-
-                font-size: 34px;
+            .restaurant-hero h1 {
+                font-size: 36px;
             }
 
 
-            .header-text {
+            .restaurant-section {
+                padding: 45px 5%;
+            }
+
+
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .section-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 5px;
+            }
+
+
+            .search-box {
+                border-radius: 15px;
+            }
+
+
+            .search-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+
+            .search-button {
+                padding: 11px 15px;
+            }
+
+
+            .location-section {
+                padding: 20px 5% 50px;
+            }
+
+
+            .location-content {
+                flex-direction: column;
+
+                text-align: center;
+
+                padding: 25px 20px;
+            }
+
+
+            .location-button {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+        }
+
+
+        /* =========================
+           SMALL MOBILE
+           ========================= */
+
+        @media (max-width: 450px) {
+
+            .restaurant-hero h1 {
+                font-size: 30px;
+            }
+
+
+            .restaurant-hero p {
+                font-size: 14px;
+            }
+
+
+            .search-box {
+                padding: 5px;
+            }
+
+
+            .search-box input {
+                padding: 12px 8px;
 
                 font-size: 12px;
             }
 
 
-            .hero {
+            .search-button {
+                font-size: 11px;
 
-                margin-top: 35px;
+                padding: 10px 12px;
             }
 
 
-            .hero h1 {
-
-                font-size: 34px;
+            .restaurant-content {
+                padding: 18px;
             }
 
 
-            .hero p {
+            .restaurant-bottom {
+                flex-direction: column;
 
-                font-size: 14px;
+                align-items: flex-start;
+
+                gap: 12px;
             }
 
 
-            .restaurant-container {
+            .view-menu {
+                width: 100%;
 
-                grid-template-columns: 1fr;
-            }
-        }
-
-
-        @media (max-width: 480px) {
-
-            .header-text {
-
-                display: none;
+                text-align: center;
             }
 
-
-            .logo {
-
-                font-size: 32px;
-            }
-
-
-            .hero h1 {
-
-                font-size: 29px;
-            }
-
-
-            .container {
-
-                width: 92%;
-            }
         }
 
     </style>
@@ -688,37 +777,73 @@
 
 
     <!-- =========================
-         HEADER
-    ========================= -->
+         COMMON NAVBAR
+         ========================= -->
 
-    <header class="header">
-
-        <div class="logo">
-            Virundhu
-        </div>
-
-        <div class="header-text">
-            Bengaluru's Food Delivery
-        </div>
-
-    </header>
-
+    <jsp:include page="navbar.jsp" />
 
 
     <!-- =========================
          HERO
-    ========================= -->
+         ========================= -->
 
-    <section class="hero">
+    <section class="restaurant-hero"
+             id="restaurantHero">
+
+        <div class="hero-small">
+            DISCOVER • ORDER • ENJOY
+        </div>
+
 
         <h1>
-            Discover Restaurants
+            Discover
+            <span>Restaurants</span>
         </h1>
 
+
         <p>
-            Explore delicious food from the best restaurants
-            around Bengaluru
+            Explore delicious food from your favourite
+            restaurants and discover your next meal.
         </p>
+
+
+        <!-- =========================
+             SEARCH
+             ========================= -->
+
+        <div class="search-wrapper">
+
+            <div class="search-box">
+
+                <div class="search-icon">
+                    &#128269;
+                </div>
+
+
+                <input
+                    type="text"
+                    id="restaurantSearch"
+                    placeholder="What are you craving today?"
+                    onkeyup="searchRestaurants()">
+
+
+                <button
+                    class="search-button"
+                    type="button"
+                    onclick="searchRestaurants()">
+
+                    Search
+
+                </button>
+
+            </div>
+
+
+            <div class="search-hint">
+                Try searching for "Biryani", "Dosa", "Chinese"...
+            </div>
+
+        </div>
 
     </section>
 
@@ -726,171 +851,164 @@
 
     <!-- =========================
          RESTAURANTS
-    ========================= -->
+         ========================= -->
 
-    <main class="container">
+    <section class="restaurant-section">
 
-        <div class="restaurant-container">
+
+        <div class="section-header">
+
+            <h2>
+                Popular Restaurants
+            </h2>
+
+
+            <span class="restaurant-count">
+
+                <%= restaurants != null
+                    ? restaurants.size()
+                    : 0 %>
+
+                Restaurants
+
+            </span>
+
+        </div>
+
+
+
+        <div class="restaurant-grid"
+             id="restaurantGrid">
+
 
             <%
 
-                List<Restaurant> restaurants =
-                    (List<Restaurant>)
-                    request.getAttribute("restaurants");
-
-
                 if (restaurants != null &&
                     !restaurants.isEmpty()) {
-
 
                     for (Restaurant restaurant : restaurants) {
 
             %>
 
 
-                <!-- =========================
-                     RESTAURANT CARD
-                ========================= -->
+            <!-- =========================
+                 RESTAURANT CARD
+                 ========================= -->
 
-                <div class="restaurant-card">
+            <div class="restaurant-card"
 
+                 data-name="<%= restaurant.getName().toLowerCase() %>"
 
-                    <!-- IMAGE -->
-
-                    <div class="image-container">
-
-                        <img
-                            class="restaurant-image"
-                            src="<%= restaurant.getImagePath() %>"
-                            alt="<%= restaurant.getName() %>"
-                        >
+                 data-cuisine="<%= restaurant.getCuisineType().toLowerCase() %>">
 
 
-                        <!-- OPEN STATUS -->
+                <!-- IMAGE -->
 
-                        <div class="open-badge">
-
-                            ● OPEN NOW
-
-                        </div>
+                <div class="restaurant-image">
 
 
-                        <!-- RATING -->
+                    <img
+                        src="<%= restaurant.getImagePath() %>"
 
-                        <div class="rating-badge">
+                        alt="<%= restaurant.getName() %>"
 
-                            ⭐
-                            <%= restaurant.getRating() %>
+                        onerror="this.src='https://via.placeholder.com/600x400?text=Virundhu+Restaurant';">
 
-                        </div>
+
+                    <!-- RATING -->
+
+                    <div class="rating">
+
+                        &#11088;
+                        <%= restaurant.getRating() %>
 
                     </div>
 
 
+                    <!-- OPEN STATUS -->
 
-                    <!-- DETAILS -->
+                    <div class="open-status">
 
-                    <div class="restaurant-details">
-
-
-                        <!-- RESTAURANT NAME -->
-
-                        <div class="restaurant-name">
-
-                            <%= restaurant.getName() %>
-
-                        </div>
-
-
-                        <!-- CUISINE -->
-
-                        <div class="cuisine">
-
-                            <%= restaurant.getCuisineType() %>
-
-                        </div>
-
-
-                        <!-- ADDRESS -->
-
-                        <div class="address">
-
-                            📍
-                            <%= restaurant.getAddress() %>
-
-                        </div>
-
-
-                        <!-- DELIVERY -->
-
-                        <div class="delivery">
-
-                            🛵 Delivery in
-
-                            <strong>
-                                <%= restaurant.getDeliveryTime() %>
-                                mins
-                            </strong>
-
-                        </div>
-
-
-                        <!-- OPEN / CLOSE -->
-
-                        <div class="timing">
-
-
-                            <div class="timing-box">
-
-                                <span class="timing-title">
-                                    Opens
-                                </span>
-
-                                <span class="timing-time">
-                                    🕙 10:00 AM
-                                </span>
-
-                            </div>
-
-
-                            <div class="timing-box">
-
-                                <span class="timing-title">
-                                    Closes
-                                </span>
-
-                                <span class="timing-time">
-                                    🕚 11:00 PM
-                                </span>
-
-                            </div>
-
-
-                            <div class="open-text">
-
-                                Open
-
-                            </div>
-
-
-                        </div>
-
-
-                        <!-- VIEW MENU -->
-
-                        <a
-                            class="view-menu"
-                            href="menu?restaurantId=<%= restaurant.getRestaurantId() %>"
-                        >
-
-                            View Menu →
-
-                        </a>
-
+                        &#9679; Open
 
                     </div>
 
                 </div>
+
+
+
+                <!-- CONTENT -->
+
+                <div class="restaurant-content">
+
+
+                    <h3>
+
+                        <%= restaurant.getName() %>
+
+                    </h3>
+
+
+                    <!-- CUISINE -->
+
+                    <span class="cuisine">
+
+                        <%= restaurant.getCuisineType() %>
+
+                    </span>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="restaurant-info">
+
+                        &#128205;
+
+                        <%= restaurant.getAddress() %>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="restaurant-info">
+
+                        &#128336;
+
+                        <%= restaurant.getDeliveryTime() %>
+
+                        mins delivery
+
+                    </div>
+
+
+
+                    <!-- BOTTOM -->
+
+                    <div class="restaurant-bottom">
+
+
+                        <span class="delivery-time">
+
+                            &#128666; Fast delivery
+
+                        </span>
+
+
+                        <a
+                            href="<%= request.getContextPath() %>/menu?restaurantId=<%= restaurant.getRestaurantId() %>"
+
+                            class="view-menu">
+
+                            View Menu &#8594;
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
 
             <%
@@ -902,19 +1020,42 @@
             %>
 
 
-                <!-- NO RESTAURANTS -->
+            <!-- =========================
+                 NO RESTAURANTS
+                 ========================= -->
 
-                <div class="empty">
+            <div style="
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 70px 20px;
+            ">
 
-                    <h2>
-                        No restaurants available
-                    </h2>
 
-                    <p>
-                        Please check again later.
-                    </p>
+                <div style="
+                    font-size: 60px;
+                    margin-bottom: 15px;
+                ">
+
+                    &#127860;
 
                 </div>
+
+
+                <h2>
+                    No restaurants found
+                </h2>
+
+
+                <p style="
+                    color: #777;
+                    margin-top: 8px;
+                ">
+
+                    Please try again later.
+
+                </p>
+
+            </div>
 
 
             <%
@@ -923,23 +1064,206 @@
 
             %>
 
+
         </div>
 
-    </main>
+    </section>
+
+
+
+    <!-- =========================
+         LOCATION
+         ========================= -->
+
+    <section class="location-section"
+             id="location">
+
+
+        <div class="location-content">
+
+
+            <div class="location-icon">
+
+                &#128205;
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Find delicious food near you
+                </h2>
+
+
+                <p>
+                    Discover restaurants and delicious meals
+                    available around your location.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="location-button"
+                onclick="getMyLocation()">
+
+                &#128205; Use My Location
+
+            </button>
+
+
+        </div>
+
+    </section>
 
 
 
     <!-- =========================
          FOOTER
-    ========================= -->
+         ========================= -->
 
     <footer class="footer">
 
-        © 2026
-        <span>Virundhu</span>
-        · Delicious food, delivered with love.
+
+        <div class="footer-logo">
+
+            🍴 VIRUNDHU
+
+        </div>
+
+
+        <p>
+            Delicious food. Delivered with love.
+        </p>
+
+
+        <p style="margin-top: 10px;">
+
+            &copy; 2026 Virundhu.
+            All rights reserved.
+
+        </p>
+
 
     </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+
+        /* =========================
+           RESTAURANT SEARCH
+           ========================= */
+
+        function searchRestaurants() {
+
+            let searchValue =
+                document
+                    .getElementById("restaurantSearch")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            let cards =
+                document
+                    .querySelectorAll(".restaurant-card");
+
+
+            cards.forEach(function(card) {
+
+
+                let name =
+                    card.getAttribute("data-name");
+
+
+                let cuisine =
+                    card.getAttribute("data-cuisine");
+
+
+                if (
+                    name.includes(searchValue) ||
+                    cuisine.includes(searchValue)
+                ) {
+
+                    card.style.display = "";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =========================
+           GET USER LOCATION
+           ========================= */
+
+        function getMyLocation() {
+
+
+            if (!navigator.geolocation) {
+
+                alert(
+                    "Location is not supported by your browser."
+                );
+
+                return;
+
+            }
+
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+
+                    const latitude =
+                        position.coords.latitude;
+
+
+                    const longitude =
+                        position.coords.longitude;
+
+
+                    alert(
+                        "Your location detected!\\n\\n" +
+
+                        "Latitude: " +
+                        latitude +
+
+                        "\\nLongitude: " +
+                        longitude
+                    );
+
+                },
+
+
+                function(error) {
+
+                    alert(
+                        "Please allow location access in your browser."
+                    );
+
+                }
+
+            );
+
+        }
+
+    </script>
 
 
 </body>
