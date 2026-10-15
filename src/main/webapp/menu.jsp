@@ -5,7 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.tap.model.Menu" %>
 <%@ page import="com.tap.model.Cart" %>
-<%@ page import="com.tap.model.CartItem" %>
+
 
 <!DOCTYPE html>
 
@@ -18,7 +18,9 @@
     <title>Virundhu - Menu</title>
 
 
-    <!-- Google Fonts -->
+    <!-- =====================================================
+         GOOGLE FONTS
+    ===================================================== -->
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -27,16 +29,25 @@
           href="https://fonts.gstatic.com"
           crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
+
+    <!-- =====================================================
+         CSS
+    ===================================================== -->
 
     <style>
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
 
 
@@ -54,139 +65,13 @@
             color: #222;
 
             min-height: 100vh;
+
         }
 
 
-        /* =========================
-           HEADER
-        ========================= */
-
-        .header {
-
-            width: 100%;
-
-            padding: 18px 7%;
-
-            background: rgba(255,255,255,0.95);
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 1000;
-
-            box-shadow:
-                0 5px 25px rgba(0,0,0,0.08);
-
-            backdrop-filter: blur(15px);
-        }
-
-
-        .logo {
-
-            font-family: 'Pacifico', cursive;
-
-            font-size: 42px;
-
-            color: #ff5a00;
-
-            text-shadow:
-                2px 2px 0 #ffe1cc,
-                4px 4px 12px rgba(255,90,0,0.20);
-        }
-
-
-        .header-right {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 25px;
-        }
-
-
-        .back-link {
-
-            text-decoration: none;
-
-            color: #ff5a00;
-
-            font-weight: 600;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           VIEW CART
-        ========================= */
-
-        .cart-link {
-
-            text-decoration: none;
-
-            background: #ff5a00;
-
-            color: white;
-
-            padding: 10px 18px;
-
-            border-radius: 25px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            transition: 0.3s ease;
-        }
-
-
-        .cart-link:hover {
-
-            background: #e64f00;
-
-            transform: translateY(-2px);
-        }
-
-
-        .cart-count {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            min-width: 24px;
-
-            height: 24px;
-
-            padding: 0 6px;
-
-            margin-left: 5px;
-
-            background: white;
-
-            color: #ff5a00;
-
-            border-radius: 50%;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-
-        /* =========================
+        /* =====================================================
            HERO
-        ========================= */
+        ===================================================== */
 
         .hero {
 
@@ -197,6 +82,7 @@
             max-width: 1200px;
 
             margin: 50px auto 40px;
+
         }
 
 
@@ -218,6 +104,7 @@
             -webkit-text-fill-color: transparent;
 
             margin-bottom: 10px;
+
         }
 
 
@@ -226,12 +113,13 @@
             color: #777;
 
             font-size: 16px;
+
         }
 
 
-        /* =========================
-           MENU CONTAINER
-        ========================= */
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
 
         .container {
 
@@ -242,6 +130,7 @@
             margin: auto;
 
             padding-bottom: 70px;
+
         }
 
 
@@ -256,12 +145,13 @@
                 );
 
             gap: 30px;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            MENU CARD
-        ========================= */
+        ===================================================== */
 
         .menu-card {
 
@@ -272,11 +162,13 @@
             overflow: hidden;
 
             box-shadow:
-                0 8px 30px rgba(0,0,0,0.08);
+                0 8px 30px
+                rgba(0,0,0,0.08);
 
             transition:
                 transform 0.35s ease,
                 box-shadow 0.35s ease;
+
         }
 
 
@@ -285,13 +177,15 @@
             transform: translateY(-8px);
 
             box-shadow:
-                0 20px 45px rgba(0,0,0,0.15);
+                0 20px 45px
+                rgba(0,0,0,0.15);
+
         }
 
 
-        /* =========================
+        /* =====================================================
            IMAGE
-        ========================= */
+        ===================================================== */
 
         .image-container {
 
@@ -302,6 +196,7 @@
             overflow: hidden;
 
             position: relative;
+
         }
 
 
@@ -315,19 +210,20 @@
 
             transition:
                 transform 0.5s ease;
+
         }
 
 
-        .menu-card:hover
-        .menu-image {
+        .menu-card:hover .menu-image {
 
             transform: scale(1.08);
+
         }
 
 
-        /* =========================
-           AVAILABLE
-        ========================= */
+        /* =====================================================
+           AVAILABLE BADGE
+        ===================================================== */
 
         .available-badge {
 
@@ -348,16 +244,41 @@
             font-size: 12px;
 
             font-weight: 700;
+
         }
 
 
-        /* =========================
+        .not-available-badge {
+
+            position: absolute;
+
+            top: 15px;
+
+            left: 15px;
+
+            background: #777;
+
+            color: white;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
            DETAILS
-        ========================= */
+        ===================================================== */
 
         .menu-details {
 
             padding: 22px;
+
         }
 
 
@@ -370,6 +291,7 @@
             margin-bottom: 8px;
 
             color: #222;
+
         }
 
 
@@ -384,12 +306,13 @@
             min-height: 45px;
 
             margin-bottom: 15px;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            PRICE
-        ========================= */
+        ===================================================== */
 
         .price {
 
@@ -400,12 +323,13 @@
             font-weight: 700;
 
             margin-bottom: 18px;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            ADD BUTTON
-        ========================= */
+        ===================================================== */
 
         .add-button {
 
@@ -437,6 +361,7 @@
             cursor: pointer;
 
             transition: 0.3s ease;
+
         }
 
 
@@ -445,19 +370,15 @@
             transform: translateY(-2px);
 
             box-shadow:
-                0 8px 20px rgba(255,90,0,0.3);
+                0 8px 20px
+                rgba(255,90,0,0.3);
+
         }
 
 
-        /* =========================
-           ADDED ITEM AREA
-        ========================= */
-
-        .cart-action {
-
-            width: 100%;
-        }
-
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
 
         .quantity-box {
 
@@ -470,12 +391,14 @@
             gap: 10px;
 
             margin-top: 10px;
+
         }
 
 
         .quantity-box.show {
 
             display: flex;
+
         }
 
 
@@ -498,6 +421,18 @@
             font-weight: 700;
 
             cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .quantity-button:hover {
+
+            background: #e64f00;
+
+            transform: scale(1.05);
+
         }
 
 
@@ -512,6 +447,7 @@
             min-width: 35px;
 
             text-align: center;
+
         }
 
 
@@ -526,12 +462,13 @@
             font-weight: 600;
 
             margin-top: 8px;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            UNAVAILABLE
-        ========================= */
+        ===================================================== */
 
         .unavailable {
 
@@ -542,6 +479,7 @@
             cursor: not-allowed;
 
             box-shadow: none;
+
         }
 
 
@@ -550,12 +488,13 @@
             transform: none;
 
             box-shadow: none;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            EMPTY
-        ========================= */
+        ===================================================== */
 
         .empty {
 
@@ -570,7 +509,9 @@
             border-radius: 20px;
 
             box-shadow:
-                0 8px 25px rgba(0,0,0,0.06);
+                0 8px 25px
+                rgba(0,0,0,0.06);
+
         }
 
 
@@ -581,6 +522,7 @@
             color: #444;
 
             margin-bottom: 10px;
+
         }
 
 
@@ -589,12 +531,13 @@
             color: #888;
 
             font-size: 14px;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            FOOTER
-        ========================= */
+        ===================================================== */
 
         .footer {
 
@@ -605,6 +548,7 @@
             color: #888;
 
             font-size: 13px;
+
         }
 
 
@@ -613,70 +557,68 @@
             color: #ff5a00;
 
             font-weight: 600;
+
         }
 
 
-        /* =========================
+        /* =====================================================
            RESPONSIVE
-        ========================= */
+        ===================================================== */
 
-        @media (max-width: 768px) {
-
-            .logo {
-
-                font-size: 34px;
-            }
-
+        @media (max-width: 900px) {
 
             .hero h1 {
 
                 font-size: 34px;
+
             }
 
 
             .menu-container {
 
                 grid-template-columns: 1fr;
+
             }
 
-
-            .header-right {
-
-                gap: 10px;
-            }
-
-
-            .back-link {
-
-                display: none;
-            }
         }
 
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
 
-            .header {
+            .hero {
 
-                padding: 15px 5%;
-            }
+                margin-top: 35px;
 
-
-            .logo {
-
-                font-size: 32px;
             }
 
 
             .hero h1 {
 
                 font-size: 29px;
+
+            }
+
+
+            .hero p {
+
+                font-size: 14px;
+
             }
 
 
             .container {
 
                 width: 92%;
+
             }
+
+
+            .image-container {
+
+                height: 200px;
+
+            }
+
         }
 
     </style>
@@ -687,108 +629,48 @@
 <body>
 
 
+<!-- =====================================================
+     COMMON NAVBAR
+===================================================== -->
+
+<jsp:include page="navbar.jsp" />
+
+
 <%
     /*
-     * Get cart from session.
-     * This allows us to display the current
-     * quantity and cart count when the page loads.
+     * =====================================================
+     * GET CART
+     * =====================================================
      */
 
     Cart cart =
-        (Cart) session.getAttribute("cart");
+            (Cart) session.getAttribute("cart");
 
-
-    int cartCount = 0;
-
-    if (cart != null) {
-
-        cartCount =
-            cart.getTotalQuantity();
-    }
 %>
 
 
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="header">
-
-
-    <div class="logo">
-
-        Virundhu
-
-    </div>
-
-
-    <div class="header-right">
-
-
-        <a href="restaurants"
-           class="back-link">
-
-            ← Back to Restaurants
-
-        </a>
-
-
-        <!-- VIEW CART -->
-
-        <a href="cart"
-           class="cart-link">
-
-            🛒 View Cart
-
-            <span
-                class="cart-count"
-                id="cart-count">
-
-                <%= cartCount %>
-
-            </span>
-
-        </a>
-
-
-    </div>
-
-
-</header>
-
-
-
-<!-- =========================
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
 <section class="hero">
 
-
     <h1>
-
         Delicious Menu
-
     </h1>
 
-
     <p>
-
         Choose your favourite food and enjoy your meal
-
     </p>
-
 
 </section>
 
 
-
-<!-- =========================
+<!-- =====================================================
      MENU
-========================= -->
+===================================================== -->
 
 <main class="container">
-
 
     <div class="menu-container">
 
@@ -796,8 +678,8 @@
         <%
 
             List<Menu> menus =
-                (List<Menu>)
-                request.getAttribute("menus");
+                    (List<Menu>)
+                    request.getAttribute("menus");
 
 
             if (menus != null &&
@@ -806,28 +688,25 @@
 
                 for (Menu menu : menus) {
 
+
                     int currentQuantity = 0;
 
-
-                    /*
-                     * Find current quantity of this item
-                     * from the session cart.
-                     */
 
                     if (cart != null) {
 
                         currentQuantity =
-                            cart.getItemQuantity(
-                                menu.getMenuId()
-                            );
+                                cart.getItemQuantity(
+                                        menu.getMenuId()
+                                );
+
                     }
 
         %>
 
 
-        <!-- =========================
+        <!-- =================================================
              MENU CARD
-        ========================= -->
+        ================================================= -->
 
         <div class="menu-card">
 
@@ -836,18 +715,14 @@
 
             <div class="image-container">
 
-
                 <img
                     class="menu-image"
-
                     src="<%= menu.getImagePath() %>"
-
                     alt="<%= menu.getItemName() %>"
                 >
 
 
                 <% if (menu.isAvailable()) { %>
-
 
                     <div class="available-badge">
 
@@ -855,24 +730,17 @@
 
                     </div>
 
-
                 <% } else { %>
 
-
-                    <div
-                        class="available-badge"
-                        style="background:#777;">
+                    <div class="not-available-badge">
 
                         NOT AVAILABLE
 
                     </div>
 
-
                 <% } %>
 
-
             </div>
-
 
 
             <!-- DETAILS -->
@@ -889,7 +757,6 @@
                 </div>
 
 
-
                 <!-- DESCRIPTION -->
 
                 <div class="description">
@@ -897,7 +764,6 @@
                     <%= menu.getDescription() %>
 
                 </div>
-
 
 
                 <!-- PRICE -->
@@ -909,127 +775,92 @@
                 </div>
 
 
-
-                <!-- =========================
-                     ADD TO CART
-                ========================= -->
+                <!-- =================================================
+                     AVAILABLE ITEM
+                ================================================= -->
 
                 <% if (menu.isAvailable()) { %>
 
 
-                    <div class="cart-action">
+                    <!-- ADD BUTTON -->
 
+                    <button
+                        id="add-button-<%= menu.getMenuId() %>"
+                        class="add-button"
+                        type="button"
+                        onclick="addToCart(<%= menu.getMenuId() %>)">
+
+                        <%= currentQuantity > 0
+                            ? "Add Again"
+                            : "Add to Cart" %>
+
+                    </button>
+
+
+                    <!-- QUANTITY -->
+
+                    <div
+                        class="quantity-box
+                        <%= currentQuantity > 0
+                            ? "show"
+                            : "" %>"
+                        id="quantity-box-<%= menu.getMenuId() %>">
+
+
+                        <!-- MINUS -->
 
                         <button
                             type="button"
-
-                            class="add-button"
-
-                            id="add-button-<%= menu.getMenuId() %>"
-
-                            onclick="addToCart(
-                                <%= menu.getMenuId() %>
+                            class="quantity-button"
+                            onclick="updateQuantity(
+                                <%= menu.getMenuId() %>,
+                                'decrease'
                             )">
 
-                            <%
-                                if (currentQuantity > 0) {
-                            %>
-
-                                Add Again
-
-                            <%
-                                } else {
-                            %>
-
-                                Add to Cart
-
-                            <%
-                                }
-                            %>
+                            −
 
                         </button>
 
 
+                        <!-- NUMBER -->
 
-                        <!-- QUANTITY CONTROLS -->
+                        <span
+                            class="quantity-number"
+                            id="quantity-<%= menu.getMenuId() %>">
 
-                        <div
-                            class="quantity-box
-                            <%= currentQuantity > 0
-                                ? "show"
-                                : "" %>"
+                            <%= currentQuantity %>
 
-                            id="quantity-box-<%= menu.getMenuId() %>">
-
-
-                            <!-- MINUS -->
-
-                            <button
-                                type="button"
-
-                                class="quantity-button"
-
-                                onclick="updateQuantity(
-                                    <%= menu.getMenuId() %>,
-                                    'decrease'
-                                )">
-
-                                −
-
-                            </button>
+                        </span>
 
 
-                            <!-- QUANTITY -->
+                        <!-- PLUS -->
 
-                            <span
-                                class="quantity-number"
+                        <button
+                            type="button"
+                            class="quantity-button"
+                            onclick="updateQuantity(
+                                <%= menu.getMenuId() %>,
+                                'increase'
+                            )">
 
-                                id="quantity-<%= menu.getMenuId() %>">
+                            +
 
-                                <%= currentQuantity %>
+                        </button>
 
-                            </span>
-
-
-                            <!-- PLUS -->
-
-                            <button
-                                type="button"
-
-                                class="quantity-button"
-
-                                onclick="updateQuantity(
-                                    <%= menu.getMenuId() %>,
-                                    'increase'
-                                )">
-
-                                +
-
-                            </button>
+                    </div>
 
 
-                        </div>
+                    <!-- MESSAGE -->
 
+                    <div
+                        class="added-message"
+                        id="message-<%= menu.getMenuId() %>">
 
-                        <!-- ADDED MESSAGE -->
+                        <% if (currentQuantity > 0) { %>
 
-                        <div
-                            class="added-message"
+                            Added to cart
 
-                            id="message-<%= menu.getMenuId() %>">
-
-                            <%
-                                if (currentQuantity > 0) {
-                            %>
-
-                                Added to cart
-
-                            <%
-                                }
-                            %>
-
-                        </div>
-
+                        <% } %>
 
                     </div>
 
@@ -1037,11 +868,11 @@
                 <% } else { %>
 
 
+                    <!-- UNAVAILABLE -->
+
                     <button
                         class="add-button unavailable"
-
                         type="button"
-
                         disabled>
 
                         Currently Unavailable
@@ -1053,7 +884,6 @@
 
 
             </div>
-
 
         </div>
 
@@ -1067,12 +897,11 @@
         %>
 
 
-        <!-- =========================
-             EMPTY
-        ========================= -->
+        <!-- =================================================
+             EMPTY MENU
+        ================================================= -->
 
         <div class="empty">
-
 
             <h2>
 
@@ -1080,14 +909,12 @@
 
             </h2>
 
-
             <p>
 
                 This restaurant currently has no
                 menu items.
 
             </p>
-
 
         </div>
 
@@ -1101,14 +928,12 @@
 
     </div>
 
-
 </main>
 
 
-
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <footer class="footer">
 
@@ -1121,52 +946,42 @@
 </footer>
 
 
-
-<!-- =========================
+<!-- =====================================================
      JAVASCRIPT
-========================= -->
+===================================================== -->
 
 <script>
 
 
-/*
- * =============================
- * ADD TO CART
- * =============================
- *
- * This sends the menuId to
- * AddToCartController.
- *
- * IMPORTANT:
- * There is NO redirect here.
- *
- * Therefore the user stays
- * on menu.jsp.
- */
+/* =====================================================
+   ADD TO CART
+===================================================== */
 
 function addToCart(menuId) {
 
 
-    fetch("addToCart", {
+    fetch(
+        "<%= request.getContextPath() %>/addToCart",
+        {
 
-        method: "POST",
+            method: "POST",
 
-        headers: {
+            headers: {
 
-            "Content-Type":
-                "application/x-www-form-urlencoded"
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
 
-        },
+            },
 
-        body:
-            "menuId=" +
-            encodeURIComponent(menuId)
+            body:
+                "menuId=" +
+                encodeURIComponent(menuId)
 
-    })
+        }
+    )
 
 
     .then(function(response) {
-
 
         if (!response.ok) {
 
@@ -1175,7 +990,6 @@ function addToCart(menuId) {
             );
 
         }
-
 
         return response.text();
 
@@ -1186,7 +1000,7 @@ function addToCart(menuId) {
 
 
         /*
-         * Controller returns:
+         * Server response:
          *
          * quantity,cartCount
          *
@@ -1195,110 +1009,94 @@ function addToCart(menuId) {
          * 2,5
          */
 
+
         var values =
-            data.split(",");
+                data.split(",");
 
 
         var quantity =
-            parseInt(values[0]);
+                parseInt(values[0]);
 
 
         var cartCount =
-            parseInt(values[1]);
+                parseInt(values[1]);
 
 
-
-        /*
-         * Update quantity
-         */
+        /* Update quantity */
 
         var quantityElement =
-            document.getElementById(
-                "quantity-" + menuId
-            );
+                document.getElementById(
+                    "quantity-" + menuId
+                );
 
 
         if (quantityElement) {
 
             quantityElement.innerText =
-                quantity;
+                    quantity;
 
         }
 
 
-
-        /*
-         * Show quantity controls
-         */
+        /* Show quantity controls */
 
         var quantityBox =
-            document.getElementById(
-                "quantity-box-" + menuId
-            );
+                document.getElementById(
+                    "quantity-box-" + menuId
+                );
 
 
         if (quantityBox) {
 
-            quantityBox.classList.add(
-                "show"
-            );
+            quantityBox.classList.add("show");
 
         }
 
 
-
-        /*
-         * Change button text
-         */
+        /* Change button */
 
         var addButton =
-            document.getElementById(
-                "add-button-" + menuId
-            );
+                document.getElementById(
+                    "add-button-" + menuId
+                );
 
 
         if (addButton) {
 
             addButton.innerText =
-                "Add Again";
+                    "Add Again";
 
         }
 
 
-
-        /*
-         * Show message
-         */
+        /* Show message */
 
         var message =
-            document.getElementById(
-                "message-" + menuId
-            );
+                document.getElementById(
+                    "message-" + menuId
+                );
 
 
         if (message) {
 
             message.innerText =
-                "Added to cart";
+                    "Added to cart";
 
         }
 
 
-
-        /*
-         * Update cart count
-         */
+        /* Update navbar */
 
         var cartCountElement =
-            document.getElementById(
-                "cart-count"
-            );
+                document.getElementById(
+                    "cart-count"
+                );
 
 
         if (cartCountElement) {
 
             cartCountElement.innerText =
-                cartCount;
+                    cartCount;
 
         }
 
@@ -1307,9 +1105,7 @@ function addToCart(menuId) {
 
     .catch(function(error) {
 
-
         console.error(error);
-
 
         alert(
             "Unable to add item to cart."
@@ -1320,12 +1116,9 @@ function addToCart(menuId) {
 }
 
 
-
-/*
- * =============================
- * INCREASE / DECREASE
- * =============================
- */
+/* =====================================================
+   INCREASE / DECREASE
+===================================================== */
 
 function updateQuantity(
     menuId,
@@ -1333,28 +1126,30 @@ function updateQuantity(
 ) {
 
 
-    fetch("cart", {
+    fetch(
+        "<%= request.getContextPath() %>/cart",
+        {
 
-        method: "POST",
+            method: "POST",
 
-        headers: {
+            headers: {
 
-            "Content-Type":
-                "application/x-www-form-urlencoded"
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
 
-        },
+            },
 
-        body:
-            "action=" +
-            encodeURIComponent(action) +
-            "&menuId=" +
-            encodeURIComponent(menuId)
+            body:
+                "action=" +
+                encodeURIComponent(action) +
+                "&menuId=" +
+                encodeURIComponent(menuId)
 
-    })
+        }
+    )
 
 
     .then(function(response) {
-
 
         if (!response.ok) {
 
@@ -1364,25 +1159,124 @@ function updateQuantity(
 
         }
 
-
-        /*
-         * CartServlet redirects normally.
-         *
-         * We don't want that redirect
-         * while we are on menu.jsp.
-         *
-         * So simply reload menu.jsp
-         * after the update.
-         */
-
-        return response;
+        return response.text();
 
     })
 
 
-    .then(function() {
+    .then(function(data) {
 
-        window.location.reload();
+
+        /*
+         * Server response:
+         *
+         * quantity,cartCount
+         */
+
+        var values =
+                data.split(",");
+
+
+        var quantity =
+                parseInt(values[0]);
+
+
+        var cartCount =
+                parseInt(values[1]);
+
+
+        /* Update quantity */
+
+        var quantityElement =
+                document.getElementById(
+                    "quantity-" + menuId
+                );
+
+
+        if (quantityElement) {
+
+            quantityElement.innerText =
+                    quantity;
+
+        }
+
+
+        /* Update navbar count */
+
+        var cartCountElement =
+                document.getElementById(
+                    "cart-count"
+                );
+
+
+        if (cartCountElement) {
+
+            cartCountElement.innerText =
+                    cartCount;
+
+        }
+
+
+        /* Quantity box */
+
+        var quantityBox =
+                document.getElementById(
+                    "quantity-box-" + menuId
+                );
+
+
+        /* Message */
+
+        var message =
+                document.getElementById(
+                    "message-" + menuId
+                );
+
+
+        /*
+         * If quantity becomes zero,
+         * hide controls.
+         */
+
+        if (quantity <= 0) {
+
+
+            if (quantityBox) {
+
+                quantityBox.classList.remove(
+                    "show"
+                );
+
+            }
+
+
+            if (message) {
+
+                message.innerText = "";
+
+            }
+
+
+        } else {
+
+
+            if (quantityBox) {
+
+                quantityBox.classList.add(
+                    "show"
+                );
+
+            }
+
+
+            if (message) {
+
+                message.innerText =
+                    "Added to cart";
+
+            }
+
+        }
 
     })
 

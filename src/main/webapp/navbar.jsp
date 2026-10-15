@@ -1,23 +1,78 @@
 <%
+    /*
+     * =====================================================
+     * CURRENT PAGE
+     * =====================================================
+     */
+
     String currentPage = request.getRequestURI();
 
+    String currentServlet =
+            request.getServletPath();
+
+
+    /*
+     * MenuServlet uses /menu,
+     * so we must check both /menu and menu.jsp.
+     */
+
     boolean isMenuPage =
-            currentPage != null &&
-            currentPage.endsWith("menu.jsp");
+            "/menu".equals(currentServlet)
+            ||
+            (currentPage != null &&
+             currentPage.endsWith("menu.jsp"));
+
+
+    /*
+     * =====================================================
+     * GET CART FROM SESSION
+     * =====================================================
+     */
 
     com.tap.model.Cart navbarCart =
             (com.tap.model.Cart) session.getAttribute("cart");
 
+
     int navbarCartCount = 0;
 
+
     if (navbarCart != null) {
+
         navbarCartCount =
                 navbarCart.getTotalQuantity();
     }
 %>
 
 
+<!-- =====================================================
+     GOOGLE FONT
+===================================================== -->
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+
+<!-- =====================================================
+     NAVBAR CSS
+===================================================== -->
+
 <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
 
     .virundhu-navbar {
 
@@ -29,11 +84,11 @@
 
         width: 100%;
 
-        min-height: 72px;
+        min-height: 80px;
 
         padding: 0 7%;
 
-        background: rgba(255,255,255,0.96);
+        background: rgba(255, 255, 255, 0.97);
 
         backdrop-filter: blur(12px);
 
@@ -44,25 +99,78 @@
         justify-content: space-between;
 
         box-shadow:
-            0 2px 15px rgba(0,0,0,0.08);
+            0 2px 15px rgba(0, 0, 0, 0.08);
+
     }
 
 
-    .virundhu-logo {
+    /* =====================================================
+       VIRUNDHU BRAND
+    ===================================================== */
 
-        text-decoration: none;
+    .virundhu-brand {
 
-        color: #ff6b00;
+        font-family: 'Pacifico', cursive !important;
 
-        font-size: 26px;
+        font-size: 42px !important;
 
-        font-weight: 800;
+        font-weight: 400 !important;
 
-        letter-spacing: -1px;
+        color: #ff6b00 !important;
+
+        text-decoration: none !important;
+
+        letter-spacing: 0 !important;
+
+        line-height: 1 !important;
+
+        display: inline-block;
 
         white-space: nowrap;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.3s ease,
+            text-shadow 0.3s ease;
+
     }
 
+
+    .virundhu-brand:visited {
+
+        color: #ff6b00 !important;
+
+        text-decoration: none !important;
+
+    }
+
+
+    .virundhu-brand:hover {
+
+        color: #ff6b00 !important;
+
+        text-decoration: none !important;
+
+        transform: scale(1.05);
+
+        text-shadow:
+            0 5px 15px
+            rgba(255, 107, 0, 0.25);
+
+    }
+
+
+    .virundhu-brand:active {
+
+        transform: scale(0.98);
+
+    }
+
+
+    /* =====================================================
+       NAVIGATION LINKS
+    ===================================================== */
 
     .virundhu-nav-links {
 
@@ -71,6 +179,7 @@
         align-items: center;
 
         gap: 28px;
+
     }
 
 
@@ -80,13 +189,18 @@
 
         color: #333;
 
+        font-family: 'Poppins', sans-serif;
+
         font-size: 14px;
 
         font-weight: 500;
 
-        transition: 0.3s;
-
         white-space: nowrap;
+
+        transition:
+            color 0.3s ease,
+            transform 0.3s ease;
+
     }
 
 
@@ -94,13 +208,21 @@
 
         color: #ff6b00;
 
+        text-decoration: none;
+
         transform: translateY(-1px);
+
     }
 
+
+    /* =====================================================
+       CART
+    ===================================================== */
 
     .virundhu-cart {
 
         position: relative;
+
     }
 
 
@@ -122,7 +244,9 @@
 
         background: #ff6b00;
 
-        color: white;
+        color: white !important;
+
+        font-family: 'Poppins', sans-serif;
 
         font-size: 10px;
 
@@ -133,8 +257,13 @@
         align-items: center;
 
         justify-content: center;
+
     }
 
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
 
     .virundhu-login {
 
@@ -142,9 +271,18 @@
 
         color: white !important;
 
-        padding: 10px 20px;
+        padding: 10px 22px;
 
         border-radius: 25px;
+
+        text-decoration: none !important;
+
+        font-weight: 600 !important;
+
+        transition:
+            background 0.3s ease,
+            transform 0.3s ease;
+
     }
 
 
@@ -152,9 +290,16 @@
 
         background: #e85d00 !important;
 
+        color: white !important;
+
         transform: translateY(-2px);
+
     }
 
+
+    /* =====================================================
+       MOBILE BUTTON
+    ===================================================== */
 
     .virundhu-mobile-button {
 
@@ -175,8 +320,13 @@
         font-size: 22px;
 
         cursor: pointer;
+
     }
 
+
+    /* =====================================================
+       TABLET / MOBILE
+    ===================================================== */
 
     @media (max-width: 900px) {
 
@@ -185,12 +335,21 @@
             padding: 12px 5%;
 
             flex-wrap: wrap;
+
+        }
+
+
+        .virundhu-brand {
+
+            font-size: 34px !important;
+
         }
 
 
         .virundhu-mobile-button {
 
             display: block;
+
         }
 
 
@@ -207,12 +366,14 @@
             gap: 5px;
 
             padding: 15px 0;
+
         }
 
 
         .virundhu-nav-links.show {
 
             display: flex;
+
         }
 
 
@@ -221,28 +382,32 @@
             padding: 12px 15px;
 
             border-radius: 10px;
+
         }
 
 
         .virundhu-nav-links a:hover {
 
             background: #fff3e6;
+
         }
 
 
         .virundhu-login {
 
             text-align: center;
+
         }
 
     }
 
 
-    @media (max-width: 450px) {
+    @media (max-width: 500px) {
 
-        .virundhu-logo {
+        .virundhu-brand {
 
-            font-size: 21px;
+            font-size: 30px !important;
+
         }
 
     }
@@ -250,28 +415,32 @@
 </style>
 
 
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
 <nav class="virundhu-navbar">
 
 
-    <!-- LOGO -->
+    <!-- BRAND -->
 
     <a
-        href="<%= request.getContextPath() %>/restaurants#restaurantHero"
-        class="virundhu-logo">
+        href="<%= request.getContextPath() %>/restaurants"
+        class="virundhu-brand">
 
-        🍴 VIRUNDHU
+        Virundhu
 
     </a>
 
 
-    <!-- MOBILE BUTTON -->
+    <!-- MOBILE MENU BUTTON -->
 
     <button
         class="virundhu-mobile-button"
         onclick="toggleVirundhuMenu()"
         type="button">
 
-        &#9776;
+        ☰
 
     </button>
 
@@ -288,7 +457,7 @@
         <a
             href="<%= request.getContextPath() %>/restaurants#restaurantHero">
 
-            &#127968; Home
+            Home
 
         </a>
 
@@ -298,7 +467,7 @@
         <a
             href="<%= request.getContextPath() %>/restaurants">
 
-            &#127860; Restaurants
+            Restaurants
 
         </a>
 
@@ -308,7 +477,7 @@
         <a
             href="<%= request.getContextPath() %>/restaurants#location">
 
-            &#128205; Location
+            Location
 
         </a>
 
@@ -318,7 +487,7 @@
         <a
             href="<%= request.getContextPath() %>/orders">
 
-            &#128230; Orders
+            Orders
 
         </a>
 
@@ -331,9 +500,11 @@
                 href="<%= request.getContextPath() %>/cart"
                 class="virundhu-cart">
 
-                &#128722; View Cart
+                View Cart
 
-                <span class="virundhu-cart-count">
+                <span
+                    class="virundhu-cart-count"
+                    id="cart-count">
 
                     <%= navbarCartCount %>
 
@@ -354,21 +525,26 @@
 
         </a>
 
-
     </div>
 
 </nav>
 
 
+<!-- =====================================================
+     MOBILE MENU JAVASCRIPT
+===================================================== -->
+
 <script>
 
-    function toggleVirundhuMenu() {
+function toggleVirundhuMenu() {
 
-        const nav =
-            document.getElementById("virundhuNavLinks");
+    const nav =
+        document.getElementById(
+            "virundhuNavLinks"
+        );
 
-        nav.classList.toggle("show");
+    nav.classList.toggle("show");
 
-    }
+}
 
 </script>

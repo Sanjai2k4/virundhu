@@ -149,7 +149,7 @@
             cursor: pointer;
         }
 
-        .checkout-button {
+        .checkout-button{
             background: #28a745;
             color: white;
 
@@ -232,7 +232,7 @@
                 Continue Shopping
 
             </a>
-
+           
         </div>
 
 
@@ -391,6 +391,8 @@
                 ₹ <%= cart.getTotal() %>
 
             </h2>
+             
+            
 
 
             <!-- CLEAR CART -->
@@ -415,14 +417,17 @@
 
 
             <!-- CHECKOUT -->
+            
+             <a href="checkout.jsp" 
+             class="checkout-button">
 
-            <button
-                type="button"
-                class="checkout-button">
+                Proceed to Checkout
 
-                Checkout
+            </a>
 
-            </button>
+           
+            
+           
 
         </div>
 
